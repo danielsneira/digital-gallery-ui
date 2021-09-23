@@ -1,12 +1,12 @@
 <template>
-  <v-container class="main-bg">
-    <v-row align="center" justify="center" style="height: 100vh;">
+  <v-container fluid class="main-bg">
+    <v-row align="center" justify="center" style="height: 100vh">
       <v-card
         class="mx-auto justify-center text-center sign-up-card"
         elevation="2"
         outlined
       >
-        <v-form ref="form" v-model="valid" class="ma-5 pa-5" lazy-validation>
+        <v-form ref="login" v-model="valid" class="ma-5 pa-5" lazy-validation>
           <h1 class="text-center">Log in</h1>
           <v-text-field
             v-model="email"
@@ -39,6 +39,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   data: () => ({
     valid: true,
@@ -50,41 +52,42 @@ export default {
     password: "",
     passwordRules: [
       (v) => !!v || "Password is required",
-      (v) => (v && v.length >= 5) || "Must be more than 5 characters",
+      (v) => (v && v.length >= 4) || "Must be more than 5 characters",
     ],
   }),
 
   methods: {
     logIn() {
-      this.$refs.form.validate()
-        ? console.log("okay")
-        : console.log("not okay");
+      const valid = this.$refs.login.validate();
+      if (valid) {
+        axios
+          .post("/auth/login", {
+            email: this.email,
+            password: this.password,
+          })
+          .then((response) => {
+            this.$store.commit("setToken", response.data.token);
+            this.$store.commit("setArtist", response.data.artist);
+            localStorage.setItem("accessToken", response.data.token);
+            localStorage.setItem("artist", response.data.artist.fullname);
+            this.$router.push("/");
+          })
+          .catch((error) => {
+            alert(error.response.data.msg);
+          });
+      }
     },
   },
 };
 </script>
 
 <style scoped>
-.main-bg {
-  background-image: linear-gradient(
-      180deg,
-      #262626cc,
-      #353535cc
-    ),
-    url("../assets/bg-image.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-  height: 100vh;
-}
-
 .theme--dark.v-card {
   background-color: #1e1e1eee;
   width: 360px;
 }
 
-a{
+a {
   text-decoration: none;
 }
 </style>
