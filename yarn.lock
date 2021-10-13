@@ -2580,6 +2580,18 @@ clone@^1.0.2:
   resolved "https://registry.npmjs.org/clone/-/clone-1.0.4.tgz"
   integrity sha1-2jCcwmPfFZlMaIypAheco8fNfH4=
 
+cloudinary-core@^2.10.3:
+  version "2.11.4"
+  resolved "https://registry.yarnpkg.com/cloudinary-core/-/cloudinary-core-2.11.4.tgz#1d191935bcdcd412d499a91b928a94b266fee49d"
+  integrity sha512-F1BZczD6f5mB73D0c8gl/iuacVQQO+UhckNZxeeS9ZIVeIHbsfqwWiAZMQmIvEb7Wti/9MLU0xVwaWOak2THHA==
+
+cloudinary-vue@^1.2.3:
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/cloudinary-vue/-/cloudinary-vue-1.2.3.tgz#bed730efb4d2ba7d1e2a866a9b085031d764ed88"
+  integrity sha512-KC3FQkfO2CW2kN6jCBQGX1k+s9hVW3YWF0IUS4Osbo+DK8/OSDXQ6iNy0NX2275wVTW5HXCCcXVq0gqOH5myfg==
+  dependencies:
+    cloudinary-core "^2.10.3"
+
 co@^4.6.0:
   version "4.6.0"
   resolved "https://registry.npmjs.org/co/-/co-4.6.0.tgz"
@@ -3145,6 +3157,11 @@ deepmerge@^1.5.2:
   version "1.5.2"
   resolved "https://registry.npmjs.org/deepmerge/-/deepmerge-1.5.2.tgz"
   integrity sha512-95k0GDqvBjZavkuvzx/YqVLv/6YYa17fz6ILMSf7neqQITCPbnfEnQvEgMPNjH4kgobe7+WIL0yJEHku+H3qtQ==
+
+deepmerge@^4.2.2:
+  version "4.2.2"
+  resolved "https://registry.yarnpkg.com/deepmerge/-/deepmerge-4.2.2.tgz#44d2ea3679b8f4d4ffba33f03d865fc1e7bf4955"
+  integrity sha512-FJ3UgI4gIl+PHZm53knsuSFpE+nESMr7M4v9QcgB7S63Kj/6WqMiFQJpBBYz1Pt+66bZpP3Q7Lye0Oo9MPKEdg==
 
 default-gateway@^4.2.0:
   version "4.2.0"
@@ -7538,6 +7555,11 @@ shelljs@^0.8.3:
     interpret "^1.0.0"
     rechoir "^0.6.2"
 
+shvl@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/shvl/-/shvl-2.0.3.tgz#eb4bd37644f5684bba1fc52c3010c96fb5e6afd1"
+  integrity sha512-V7C6S9Hlol6SzOJPnQ7qzOVEWUQImt3BNmmzh40wObhla3XOYMe4gGiYzLrJd5TFa+cI2f9LKIRJTTKZSTbWgw==
+
 signal-exit@^3.0.0, signal-exit@^3.0.2:
   version "3.0.3"
   resolved "https://registry.npmjs.org/signal-exit/-/signal-exit-3.0.3.tgz"
@@ -8595,6 +8617,14 @@ vuetify@^2.4.0:
   version "2.5.6"
   resolved "https://registry.npmjs.org/vuetify/-/vuetify-2.5.6.tgz"
   integrity sha512-2T8ML5PYuJ/AdMVH3ZIvzHnsM0nX8t4Xzj+0HFFGfLT7jLlptCFpG+JE8+kyrgGZlbUgulyOwCUu8hJkVsReFA==
+
+vuex-persistedstate@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/vuex-persistedstate/-/vuex-persistedstate-4.1.0.tgz#127165f85f5b4534fb3170a5d3a8be9811bd2a53"
+  integrity sha512-3SkEj4NqwM69ikJdFVw6gObeB0NHyspRYMYkR/EbhR0hbvAKyR5gksVhtAfY1UYuWUOCCA0QNGwv9pOwdj+XUQ==
+  dependencies:
+    deepmerge "^4.2.2"
+    shvl "^2.0.3"
 
 vuex@^3.4.0:
   version "3.6.2"

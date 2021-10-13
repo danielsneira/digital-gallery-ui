@@ -1,9 +1,13 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import createPersistedState from 'vuex-persistedstate';
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
+  plugins: [createPersistedState({
+    storage: window.sessionStorage,
+  })],
   state: {
     accessToken: '',
     artist: {}
@@ -11,9 +15,12 @@ export default new Vuex.Store({
   mutations: {
     setToken(state, accessToken){
       state.accessToken = accessToken;
+      sessionStorage.setItem("accessToken", accessToken);
+            
     },
     setArtist(state, artist){
       state.artist = artist;
+      sessionStorage.setItem("artist", artist.fullname);
     }
   },
   actions: {

@@ -46,7 +46,7 @@
           >
             Sign Up
           </v-btn>
-          <p>Have an account? <a href="./login">Log in</a></p>
+          <p>Have an account? <router-link to="./login">Log in</router-link></p>
         </v-form>
       </v-card>
     </v-row>
@@ -105,6 +105,15 @@ export default {
 </script>
 
 <style scoped>
+.main-bg {
+  background-image: linear-gradient(180deg, #262626cc, #353535cc),
+    url("../assets/bg-image.jpg");
+  background-color: black;
+  background-size: auto;
+  background-repeat: repeat;
+  background-position: center;
+}
+
 .theme--dark.v-card {
   background-color: #1e1e1eee;
   width: 360px;

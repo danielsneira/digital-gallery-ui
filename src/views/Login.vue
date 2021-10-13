@@ -31,7 +31,7 @@
           >
             Log in
           </v-btn>
-          <p>Don't have an account? <a href="./sign-up">Sign up</a></p>
+          <p>Don't have an account? <router-link to="./sign-up">Sign up</router-link></p>
         </v-form>
       </v-card>
     </v-row>
@@ -66,10 +66,8 @@ export default {
             password: this.password,
           })
           .then((response) => {
-            this.$store.commit("setToken", response.data.token);
-            this.$store.commit("setArtist", response.data.artist);
-            localStorage.setItem("accessToken", response.data.token);
-            localStorage.setItem("artist", response.data.artist.fullname);
+            this.$store.dispatch("setToken", response.data.token);
+            this.$store.dispatch("setArtist", response.data.artist);
             this.$router.push("/");
           })
           .catch((error) => {
@@ -82,6 +80,15 @@ export default {
 </script>
 
 <style scoped>
+.main-bg {
+  background-image: linear-gradient(180deg, #262626cc, #353535cc),
+    url("../assets/bg-image.jpg");
+  background-color: black;
+  background-size: auto;
+  background-repeat: repeat;
+  background-position: center;
+}
+
 .theme--dark.v-card {
   background-color: #1e1e1eee;
   width: 360px;
