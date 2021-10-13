@@ -3,16 +3,16 @@
     <v-app-bar
       v-if="this.$store.state.accessToken"
       app
-      color="transparent"
       dark
     >
       <router-link to="/">Digital Gallery</router-link>
+      <v-spacer></v-spacer>
+      <router-link to="/profile">{{ artist }}</router-link>
       <v-spacer></v-spacer>
       <v-btn @click="logout" to="login" replace text>
         <v-icon>mdi-logout</v-icon>
         <span class="mr-2">Exit</span>
       </v-btn>
-      <span>{{ artist }}</span>
     </v-app-bar>
     <v-main class="main-bg">
       <router-view />
@@ -26,8 +26,6 @@ export default {
 
   components: {},
   data: () => ({
-    artist: localStorage.getItem("artist"),
-
     //
   }),
   watch: {
@@ -42,11 +40,11 @@ export default {
   },
   methods: {
     logout() {
-      localStorage.clear();
+      sessionStorage.clear();
       this.$store.commit("setToken", "");
     },
     checkToken() {
-      let tokenLocal = localStorage.getItem("accessToken");
+      let tokenLocal = sessionStorage.getItem("accessToken");
       const CURRENT_ROUTE = this.$router.currentRoute.name;
       if (tokenLocal) {
         this.$store.commit("setToken", tokenLocal);
@@ -62,18 +60,18 @@ export default {
       }
     },
   },
+  computed: {
+    artist() {
+      return sessionStorage.getItem("artist")
+    }
+  }
 };
 </script>
 
 <style>
 .main-bg {
-  background-image: linear-gradient(180deg, #262626cc, #353535cc),
-    url("./assets/bg-image.jpg");
-  background-color: black;
-  background-size: cover;
-  background-repeat: repeat;
-  background-position: center;
-  height: 100vh;
+  background-color: #0a0a0a;
+
 }
 
 a {
