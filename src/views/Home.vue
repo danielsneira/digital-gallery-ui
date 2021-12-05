@@ -36,52 +36,32 @@
     </div>
 
     <div v-if="posts" class="posts">
-      <v-card
-        v-for="(post, index) in posts"
-        :key="index"
-        class="mx-auto my-12"
-        max-width="374"
-      >
-        <v-card-title>{{ post.artist.fullname }}</v-card-title>
-
-        <v-spacer></v-spacer>
-
-        <v-img :src="post.image"></v-img>
-
-        <v-card-text>
-          <div>{{ post.artist.fullname }}: "{{ post.caption }}"</div>
-        </v-card-text>
-        <v-spacer></v-spacer>
-        <div v-if="post.comments && post.comments.length > 0" class="comment">
-          <v-card v-for="(comment, index) in post.comments" :key="index">
-            <p class="artist-name">{{ comment.artist.fullname }}</p>
-            <p class="artist-comment">{{ comment.comment }}</p>
-          </v-card>
-        </div>
-        <v-card-actions>
-          <v-text-field
-            label="agregar comentario..."
-            v-model="comment"
-          ></v-text-field>
-          <v-btn color="deep-purple lighten-2" text @click="postComment(index)">
-            comment
-          </v-btn>
-          <v-btn icon :color='color' @click="toggleLike">
-            <v-icon >mdi-heart</v-icon>
-          </v-btn>
-        </v-card-actions>
-      </v-card>
+      <div v-for="(post, index) in posts"
+        :key="index">
+      <Art
+        :_id="post._id"
+        :artist="post.artist"
+        :caption="post.caption"
+        :comments="post.comments"
+        :image="post.image"
+        :likes="post.likes"
+        :createdAt="post.createdAt"
+        />
+      
+      </div>
     </div>
   </v-container>
 </template>
 
 <script>
 import axios from "axios";
+import Art from '../components/art.vue';
+
 
 export default {
   name: "Home",
 
-  components: {},
+  components: {Art},
   data() {
     return {
       artist: sessionStorage.getItem("artist"),
