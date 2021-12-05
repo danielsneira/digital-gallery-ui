@@ -7,7 +7,7 @@
     >
       <router-link to="/">Digital Gallery</router-link>
       <v-spacer></v-spacer>
-      <router-link to="/profile">{{ artist }}</router-link>
+      <router-link to="/profile">{{ this.$store.state.artist.fullname }}</router-link>
       <v-spacer></v-spacer>
       <v-btn @click="logout" to="login" replace text>
         <v-icon>mdi-logout</v-icon>
