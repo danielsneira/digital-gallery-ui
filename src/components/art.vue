@@ -1,7 +1,18 @@
 <template>
   <div>
     <v-card class="mx-auto my-12" max-width="374">
-      <v-card-title>{{ artist.fullname }}</v-card-title>
+      <v-card-title
+        >{{ artist.fullname }}
+        <v-spacer> </v-spacer>
+        <v-btn
+          class="text-right"
+          :color="followColor"
+          text
+          @click="toggleFollow"
+        >
+          {{ followText }}
+        </v-btn>
+      </v-card-title>
 
       <v-spacer></v-spacer>
 
@@ -22,7 +33,7 @@
           label="agregar comentario..."
           v-model="comment"
         ></v-text-field>
-        <v-btn color="deep-purple lighten-2" text @click="postComment(index)">
+        <v-btn color="deep-purple lighten-2" text @click="postComment()">
           comment
         </v-btn>
         <v-btn icon :color="color" @click="toggleLike">
@@ -40,25 +51,65 @@ export default {
   name: "Art",
   props: {
     _id: String,
-    artist: {},
-    comments: [],
-    comment: String,
-    likes: [],
+    artist: Object,
+    comments: Array,
+    likes: Array,
     caption: String,
     image: String,
     createdAt: String,
-    color: String,
   },
   data() {
-    return {}
+    return {
+      comment: "",
+      color: "",
+      followColor: "deep-purple",
+      followText: "follow +",
+      like: false,
+      follow: false,
+    };
   },
   methods: {
     toggleLike() {
-      this.like = !this.like;
-      this.like ? (this.color = "purple") : (this.color = "white");
+      let artId = this._id;
+      axios
+        .post("/art/like", {
+          artId: artId,
+          artist: this.$store.state.artist._id,
+          like: !this.like,
+        })
+        .then(() => {
+          this.like = !this.like;
+          this.like ? (this.color = "purple") : (this.color = "white");
+        })
+        .catch((error) => {
+          alert(error.response.data.msg);
+        });
     },
-    postComment(index) {
-      let artId = this.posts[index]._id;
+    toggleFollow() {
+      let follower = this.$store.state.artist._id;
+      let following = this.artist._id;
+
+      axios
+        .post("/artist/follow", {
+          artistFollower: follower,
+          artistFollowing: following,
+          follow: !this.follow
+        })
+        .then(() => {
+          this.follow = !this.follow;
+          this.follow
+            ? (this.followColor = "secondary")
+            : (this.followColor = "deep-purple");
+          this.follow
+            ? (this.followText = "following")
+            : (this.followText = "follow +");
+        })
+        .catch((error) => {
+          alert(error.response.data.msg);
+        });
+    },
+    postComment() {
+      let artId = this._id;
       axios
         .post("/art/comment", {
           artId: artId,
@@ -68,7 +119,7 @@ export default {
         .then(() => {
           alert("comentario añadido");
           this.comment = "";
-          this.getArt();
+          this.$emit("new-comment");
         })
         .catch((error) => {
           alert(error.response.data.msg);
@@ -78,6 +129,18 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.comment {
+  width: auto;
+  margin-left: 10px;
+}
+
+.comment .artist-name {
+  font-size: 0.8em;
+  font-weight: 600;
+}
+
+.comment .artist-comment {
+  font-size: 1.2em;
+}
 </style>
